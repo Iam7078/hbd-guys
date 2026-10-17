@@ -1,0 +1,89 @@
+@import "tailwindcss";
+@import "@fontsource-variable/shantell-sans";
+@import "@fontsource-variable/figtree";
+
+/*
+ * Palet diambil dari foto photobooth: latar biru denim, coretan hati pink.
+ */
+@theme {
+    --color-denim: #2b4c7e;
+    --color-denim-deep: #1d365e;
+    --color-denim-soft: #3d629a;
+    --color-booth: #f7b6cb;
+    --color-hot: #e5487b;
+    --color-paper: #fffdfb;
+    --color-ink: #1f2a44;
+    --color-flame: #ffc94d;
+
+    --font-sans: "Figtree Variable", system-ui, sans-serif;
+    --font-hand: "Shantell Sans Variable", "Figtree Variable", cursive;
+}
+
+html {
+    background: var(--color-denim);
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--color-denim);
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+    background: var(--color-booth);
+    color: var(--color-ink);
+}
+
+:focus-visible {
+    outline: 3px solid var(--color-flame);
+    outline-offset: 3px;
+}
+
+/* Kertas bergaris untuk surat */
+.ruled {
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 31px,
+        rgb(43 76 126 / 0.09) 31px,
+        rgb(43 76 126 / 0.09) 32px
+    );
+    background-position: 0 14px;
+}
+
+/* Selotip */
+.tape {
+    background: rgb(247 182 203 / 0.75);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
+    clip-path: polygon(3% 0, 97% 4%, 100% 50%, 96% 100%, 2% 96%, 0 45%);
+}
+
+@keyframes flicker {
+    0%, 100% { transform: scale(1, 1) rotate(-2deg); }
+    25% { transform: scale(0.94, 1.08) rotate(2deg); }
+    50% { transform: scale(1.04, 0.95) rotate(-1deg); }
+    75% { transform: scale(0.97, 1.05) rotate(1.5deg); }
+}
+
+.flame {
+    transform-origin: 50% 100%;
+    transform-box: fill-box;
+    animation: flicker 0.9s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.spin-slow {
+    animation: spin 4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .flame, .spin-slow { animation: none; }
+}
